@@ -3,7 +3,7 @@ $GRTRPath = Join-Path -Path $home -ChildPath "documents\windowsPowerShell\Get-Ra
 ## Function to download the latest direct from github
 Function Get-GetRandomTileResource {
 	# Download the latest Get-RandomTileResource gist from github
-	$GRTRScript = (New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/vercellone/DivideAndConquer/V/Get-RandomTileResource.ps1")
+	$GRTRScript = (New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/vercellone/DivideAndConquer/master/Get-RandomTileResource.ps1")
 	if ($GRTRScript) {
 		# Save a local copy of the latest for later use
 		$GRTRScript | Set-Content -Path $GRTRPath
