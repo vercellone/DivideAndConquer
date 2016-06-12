@@ -2,7 +2,7 @@ $WindowsPowerShellPath = Join-Path -Path $home -ChildPath "documents\WindowsPowe
 if (!(Test-Path -Path $WindowsPowerShellPath)) {
     New-Item -ItemType Directory -Path $WindowsPowerShellPath
 }
-Set-Content -Path (Join-Path -Path $WindowsPowerShellPath -ChildPath "Import-GetRandomTileResource.ps1") -Value ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/vercellone/DivideAndConquer/master/Import-GetRandomTileResource.ps1")) -Force
+Set-Content -Path (Join-Path -Path $WindowsPowerShellPath -ChildPath "Import-GetRandomTileResource.ps1") -Value ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/vercellone/DivideAndConquer/V/Import-GetRandomTileResource.ps1")) -Force
 Write-Host "Downloaded Import-GetRandomTileResource.ps1"
 
 $profilepath = Join-Path -Path $WindowsPowerShellPath -ChildPath "Profile.ps1"
