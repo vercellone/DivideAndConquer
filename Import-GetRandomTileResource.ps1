@@ -18,14 +18,8 @@ Function Get-GetRandomTileResource {
 	}
 }
 
-# Import the function locally, if available, else download it first
-if (Test-Path -Path $GRTRPath) { 
-	# Import the function globally using the local copy
-   	Get-Content -Path $GRTRPath | ForEach-Object { $_ -replace '\s*Function\s(\w+)','Function Global:$1' } | Out-String | Invoke-Expression
-} else { 
-	# Get it from github
-    Get-GetRandomTileResource
-}
+# Unconditionally Get the latest from github
+Get-GetRandomTileResource
 
 # Set Aliases for convenience
 Set-Alias -Name grtr -Value Get-RandomTileResource
