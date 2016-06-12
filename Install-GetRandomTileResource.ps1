@@ -7,11 +7,11 @@ Write-Host "Downloaded Import-GetRandomTileResource.ps1"
 
 $profilepath = Join-Path -Path $WindowsPowerShellPath -ChildPath "Profile.ps1"
 if (Test-Path -Path $profilepath) {
-    Add-Content -Path $profilepath -Value '. (Join-Path -Path $home -ChildPath "documents\windowsPowerShell\Import-GetRandomTileResource.ps1\n")'
+    Add-Content -Path $profilepath -Value '. (Join-Path -Path $home -ChildPath "documents\windowsPowerShell\Import-GetRandomTileResource.ps1`n")'
     Write-Host "Added a call to Import-GetRandomTileResource.ps1 to your profile script at $profilepath"
     Write-Warning "If this script is executed more than once you could end up with multiple calls to Import-GetRandomTileResource in your profile script.  You should manually delete any duplicate lines from $profilepath."
 } else {
-    Set-Content -Path $profilepath -Value '. (Join-Path -Path $home -ChildPath "documents\windowsPowerShell\Import-GetRandomTileResource.ps1\n")' -Force
+    Set-Content -Path $profilepath -Value '. (Join-Path -Path $home -ChildPath "documents\windowsPowerShell\Import-GetRandomTileResource.ps1`n")' -Force
     Write-Host "Created $profilepath with a call to Import-GetRandomTileResource.ps1"
 }
 
