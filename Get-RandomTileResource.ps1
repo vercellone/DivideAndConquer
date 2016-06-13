@@ -238,3 +238,4 @@ Function Get-RandomTileResource {
     http://pastebin.com/h53kWqHB
 #>
 }
+Get-RandomTileResource
