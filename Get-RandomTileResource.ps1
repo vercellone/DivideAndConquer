@@ -1,7 +1,7 @@
 Function Get-RandomNPC {
     [cmdletBinding()]
     param()
-    $IsNPC = 0..80 | Get-Random
+    $IsNPC = 0..100 | Get-Random
     Write-Verbose "NPC roll: $IsNPC"
     if ($IsNPC -eq 0) {
         New-Object PSObject -Property @{
@@ -15,7 +15,7 @@ Function Get-RandomTileResource {
     [cmdletBinding()]
     param(
         [Parameter(Mandatory=$False)]
-        [ValidateSet("?","Z Nuclear Test Z","Desert","Highland","Hot (Jungle, Savannah)","Ice Cap","Marsh","Sea/Lake","Semiarid","Steppe","Subarctic","Temperate (Continental, Marine, Mediterranean, Subtropical)","Tundra")]
+        [ValidateSet("?","[NUCLEAR TEST]","Desert","Highland","Hot","Ice Cap","Marsh","Sea/Lake","Semiarid","Steppe","Subarctic","Temperate","Tundra")]
         [string]
         $Type
     )
@@ -50,7 +50,7 @@ Function Get-RandomTileResource {
 	                default { "nothing" }
 	            }
             }
-	        { "Temperate (Continental, Marine, Mediterranean, Subtropical)" -contains $_ } {
+	        { "Temperate" -contains $_ } {
 	            switch ($diceroll) {
 	                { 1..2 -contains $_ } { "Natural Gas" }
 					{ 3..7 -contains $_ } { "Coal" }
@@ -58,12 +58,12 @@ Function Get-RandomTileResource {
 					{ 13..17 -contains $_ } { "Aluminum" }
 					18 { "Uranium 92" }
 					{ 19..33 -contains $_ } { "Food Crops" }
-					{ 33..42 -contains $_ } { "Cash Crops" }
+					{ 34..42 -contains $_ } { "Cash Crops" }
 					{ 43..47 -contains $_ } { "Luxury Minerals" }
 	                default { "nothing" }
 	            }
             }
-	        { "Hot (Jungle, Savannah)" -contains $_ } {
+	        { "Hot" -contains $_ } {
 	            switch ($diceroll) {
 	                { 1..2 -contains $_ } { "Oil" }
 	                { 3..4 -contains $_ } { "Natural Gas" }
@@ -123,11 +123,10 @@ Function Get-RandomTileResource {
 					{ 1..5 -contains $_ } { "Coal" }
 					{ 6..10 -contains $_ } { "Iron" }
 					{ 11..15 -contains $_ } { "Rare Earth Elements" }
-					16 { "Uranium 92" }
-					{ 17..31 -contains $_ } { "Food Crops" }
-					{ 32..36 -contains $_ } { "Phosphorus" }
-					{ 37..46 -contains $_ } { "Cash Crops" }
-					{ 47..51 -contains $_ } { "Luxury Minerals" }
+					16 { "Uranium 92" } 
+					{ 17..21 -contains $_ } { "Phosphorus" }
+					{ 22..31 -contains $_ } { "Cash Crops" }
+					{ 32..36 -contains $_ } { "Luxury Minerals" }
 	                default { "nothing" }
 	            }
             }
@@ -149,19 +148,20 @@ Function Get-RandomTileResource {
             }
 	        { "Sea/Lake" -contains $_ } {
 	            switch ($diceroll) {
-	                { 1..2 -contains $_ } { "Oil" }
-	                { 3..7 -contains $_ } { "Natural Gas" }
-					{ 8..22 -contains $_ } { "Fish" }
+	                { 1..7 -contains $_ } { "Oil" }
+	                { 8..12 -contains $_ } { "Natural Gas" }
+					{ 13..32 -contains $_ } { "Fish" }
+                    { 33..37 -contains $_ } { "Luxury Minerals" }
 	                default { "nothing" }
 	            }
 	        }
-            { "Z Nuclear Test Z" -contains $_ } {
+            { "[NUCLEAR TEST]" -contains $_ } {
 	            switch ($diceroll) {
-	                { 1..11 -contains $_ } { "a horrible Mistake! MELTDOWN" }
-	                { 12..46 -contains $_ } { "a Setback! -1" }
-					{ 47..66 -contains $_ } { "an Obstacle! +0" }
-                    { 67..91 -contains $_ } { "a Discovery! +1" }
-                    { 92..101 -contains $_ } { "a Breakthrough! +2" }
+	                { 1..8 -contains $_ } { "a horrible Mistake! MELTDOWN" }
+	                { 9..25 -contains $_ } { "a Setback! -1" }
+					{ 26..50 -contains $_ } { "an Obstacle! +0" }
+                    { 51..85 -contains $_ } { "a Discovery! +1" }
+                    { 86..100 -contains $_ } { "a Breakthrough! +2" }
 	                default { "nothing" }
 	            }
 	        }
@@ -190,7 +190,7 @@ Function Get-RandomTileResource {
 	}
 
 	# Randomly select a valid tile type if none is specified
-    $validtypes = "Z Nuclear Test Z","Desert","Highland","Hot (Jungle, Savannah)","Ice Cap","Marsh","Sea/Lake","Semiarid","Steppe","Subarctic","Temperate (Continental, Marine, Mediterranean, Subtropical)","Tundra"
+    $validtypes = "[NUCLEAR TEST]","Desert","Highland","Hot","Ice Cap","Marsh","Sea/Lake","Semiarid","Steppe","Subarctic","Temperate","Tundra"
 	$validtypes = $validtypes | sort
 	if ($Type) {
         Get-TileResourceHelper -TileType $Type
@@ -306,6 +306,8 @@ Function Get-RandomTileResource {
 	Jason Vercellone	July 2, 2015		Created
         Matt Repsher	September 1, 2015	Sentence Case corrections; Updated various selections/probabilities
 		Matt Repsher	May 23, 2016		Remade to accommodate D&CVI mechanics
+        Matt Repsher	June 26, 2016		changed NPC chance to 1/100; buffed sea/lake; removed food from highland
+        Matt Repsher	August 7, 2016		Rebalanced chances for nuclear test option
 
 .LINK
     https://gist.github.com/vercellone/bdf13d74caded715afaa
