@@ -1,13 +1,14 @@
 Function Get-RandomNPC {
     [cmdletBinding()]
     param()
-    $IsNPC = 0..100 | Get-Random
+    $IsNPC = 1..100 | Get-Random
     Write-Verbose "NPC roll: $IsNPC"
-    if ($IsNPC -eq 0) {
+    if ($IsNPC -eq 1) {
         New-Object PSObject -Property @{
             Mood='Hostile','Indifferent','Friendly' | Get-Random
             Size=3..6 | Get-Random
-            Resource='Oil','N.Gas','Coal','Iron','REE','Al','92U' | Get-Random
+            Resource='Oil','Natural Gas','Coal','Iron','Rare Earth Elements','Aluminum','Uranium' | Get-Random
+            Luck='Lucky','Not Lucky','Not Lucky','Not Lucky','Not Lucky','Not Lucky','Not Lucky','Not Lucky','Not Lucky','Not Lucky' | Get-Random
         }
     }
 }
@@ -15,7 +16,7 @@ Function Get-RandomTileResource {
     [cmdletBinding()]
     param(
         [Parameter(Mandatory=$False)]
-        [ValidateSet("?","[NUCLEAR TEST]","Desert","Highland","Hot","Ice Cap","Marsh","Sea/Lake","Semiarid","Steppe","Subarctic","Temperate","Tundra")]
+        [ValidateSet("?","[NPC Expansion]","[NUCLEAR TEST]","Desert","Highland","Hot","Ice Cap","Marsh","Sea/Lake","Semiarid","Steppe","Subarctic","Temperate","Tundra")]
         [string]
         $Type
     )
@@ -165,6 +166,14 @@ Function Get-RandomTileResource {
 	                default { "nothing" }
 	            }
 	        }
+            { "[NPC Expansion]" -contains $_ } {
+	            switch ($diceroll) {
+	                { 1..25 -contains $_ } { "Expand" }
+	                { 26..45 -contains $_ } { "Produce Units" }
+	                default { "nothing" }
+	            }
+	        }
+
 	    }
 		Write-Host ("  {0,-17} Found {1}" -f $TileType,$Resource) -ForegroundColor Green # return Found $Resource
 	}
@@ -190,7 +199,7 @@ Function Get-RandomTileResource {
 	}
 
 	# Randomly select a valid tile type if none is specified
-    $validtypes = "[NUCLEAR TEST]","Desert","Highland","Hot","Ice Cap","Marsh","Sea/Lake","Semiarid","Steppe","Subarctic","Temperate","Tundra"
+    $validtypes = "[NPC Expansion]","[NUCLEAR TEST]","Desert","Highland","Hot","Ice Cap","Marsh","Sea/Lake","Semiarid","Steppe","Subarctic","Temperate","Tundra"
 	$validtypes = $validtypes | sort
 	if ($Type) {
         Get-TileResourceHelper -TileType $Type
@@ -222,6 +231,7 @@ Function Get-RandomTileResource {
                 if ($npc) {
                     Write-Host ('A(n) {0} NPC spawned!' -f $npc.Mood) -ForegroundColor Red
                     Write-Host ('It is {0} tiles big & has {1}' -f $npc.Size,$npc.Resource) -ForegroundColor Red
+                    Write-Host ('This NPC is {0}' -f $npc.Luck) -ForegroundColor Red
                 }
                 Write-Host ('____________________________________________________________________________________________')
 		        Write-Host
@@ -307,7 +317,7 @@ Function Get-RandomTileResource {
         Matt Repsher	September 1, 2015	Sentence Case corrections; Updated various selections/probabilities
 		Matt Repsher	May 23, 2016		Remade to accommodate D&CVI mechanics
         Matt Repsher	June 26, 2016		changed NPC chance to 1/100; buffed sea/lake; removed food from highland
-        Matt Repsher	August 7, 2016		Rebalanced chances for nuclear test option
+        Matt Repsher	August 7, 2016		Rebalanced chances for nuclear test option, added NPC Expansion option
 
 .LINK
     https://gist.github.com/vercellone/bdf13d74caded715afaa
