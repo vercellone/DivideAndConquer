@@ -1,3 +1,10 @@
+$Sapi = New-Object -ComObject sapi.spvoice
+$Sapi.Voice = $Sapi.GetVoices().Item(1)
+$Sapi.Speak("Time for the $((Get-Date).DayofWeek) shuffle") | Out-Null
+$Sapi.Voice = $Sapi.GetVoices().Item(0)
+$Sapi.Rate = -3
+$Sapi.Speak("Everyday I'm shuff-a-linn") | Out-Null
+
 Function Get-RandomNPC {
     [cmdletBinding()]
     param()
@@ -240,13 +247,6 @@ Function Get-RandomTileResource {
         } until ($selection -eq "q")
 	}
 
-$Sapi = New-Object -ComObject sapi.spvoice
-$Sapi.Voice = $Sapi.GetVoices().Item(1)
-$Sapi.Speak("Time for the $((Get-Date).DayofWeek) shuffle") | Out-Null
-$Sapi.Voice = $Sapi.GetVoices().Item(0)
-$Sapi.Rate = -3
-$Sapi.Speak("Everyday I'm shuff-a-linn") | Out-Null
-	
 <#
 .SYNOPSIS 
     Gets a weighted random resource for a given (or random) tile type.
