@@ -239,6 +239,13 @@ Function Get-RandomTileResource {
 
         } until ($selection -eq "q")
 	}
+
+$Sapi = New-Object -ComObject sapi.spvoice
+$Sapi.Voice = $Sapi.GetVoices().Item(1)
+$Sapi.Speak("Time for the $((Get-Date).DayofWeek) shuffle") | Out-Null
+$Sapi.Voice = $Sapi.GetVoices().Item(0)
+$Sapi.Rate = -3
+$Sapi.Speak("Everyday I'm shuff-a-linn") | Out-Null
 	
 <#
 .SYNOPSIS 
@@ -318,6 +325,7 @@ Function Get-RandomTileResource {
 		Matt Repsher	May 23, 2016		Remade to accommodate D&CVI mechanics
         Matt Repsher	June 26, 2016		changed NPC chance to 1/100; buffed sea/lake; removed food from highland
         Matt Repsher	August 7, 2016		Rebalanced chances for nuclear test option, added NPC Expansion option
+		Matt Repsher	September 4, 2016	Added fun voice thing
 
 .LINK
     https://gist.github.com/vercellone/bdf13d74caded715afaa
