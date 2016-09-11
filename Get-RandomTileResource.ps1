@@ -1,14 +1,15 @@
 Function Get-RandomNPC {
     [cmdletBinding()]
     param()
-    $IsNPC = 1..100 | Get-Random
+    $IsNPC = 1..125 | Get-Random
     Write-Verbose "NPC roll: $IsNPC"
     if ($IsNPC -eq 1) {
         New-Object PSObject -Property @{
             Mood='Hostile','Indifferent','Friendly' | Get-Random
             Size=3..6 | Get-Random
             Resource='Oil','Natural Gas','Coal','Iron','Rare Earth Elements','Aluminum','Uranium' | Get-Random
-            Luck='Lucky','Not Lucky','Not Lucky','Not Lucky','Not Lucky','Not Lucky','Not Lucky','Not Lucky','Not Lucky','Not Lucky' | Get-Random
+            Luck='Lucky!','Not Lucky.','Not Lucky.','Not Lucky.','Not Lucky.','Not Lucky.','Not Lucky.','Not Lucky.','Not Lucky.','Not Lucky.' | Get-Random
+			Govt='Communist','Democratic','Autocratic Right','Monarchist','Crazy' | Get-Random
         }
     }
 }
@@ -28,148 +29,150 @@ Function Get-RandomTileResource {
 	    $Resource = switch ($TileType) {
 	        { "Tundra" -contains $_ } {
 	            switch ($diceroll) {
-	                { 1..2 -contains $_ } { "Oil" }
-	                { 3..4 -contains $_ } { "Natural Gas" }
-					{ 5..9 -contains $_ } { "Coal" }
-					{ 10..14 -contains $_ } { "Iron" }
-					{ 15..19 -contains $_ } { "Rare Earth Elements" }
-					20 { "Uranium 92" }
-					{ 21..25 -contains $_ } { "Luxury Minerals" }
-	                default { "nothing" }
+	                { 1..2 -contains $_ } { "Oil" } # 2%
+	                { 3..4 -contains $_ } { "Natural Gas" } # 2%
+					{ 5..9 -contains $_ } { "Coal" } # 5%
+					{ 10..14 -contains $_ } { "Iron" } # 5%
+					{ 15..19 -contains $_ } { "Rare Earth Elements" } # 5%
+					20 { "Uranium 92" } # 1%
+					{ 21..25 -contains $_ } { "Luxury Minerals" } # 5%
+	                default { "nothing" } # 
 	            }
             }
 	        { "Subarctic" -contains $_ } {
 	            switch ($diceroll) {
-	                { 1..2 -contains $_ } { "Oil" }
-	                { 3..4 -contains $_ } { "Natural Gas" }
-					{ 5..9 -contains $_ } { "Coal" }
-					{ 10..14 -contains $_ } { "Iron" }
-					{ 15..19 -contains $_ } { "Rare Earth Elements" }
-					20 { "Uranium 92" }
-					{ 21..35 -contains $_ } { "Food Crops" }
-					{ 36..40 -contains $_ } { "Luxury Minerals" }
+	                { 1..2 -contains $_ } { "Oil" } # 2%
+	                { 3..4 -contains $_ } { "Natural Gas" } # 2%
+					{ 5..9 -contains $_ } { "Coal" } # 5%
+					{ 10..14 -contains $_ } { "Iron" } # 5%
+					{ 15..19 -contains $_ } { "Rare Earth Elements" } # 5%
+					20 { "Uranium 92" } # 1%
+					{ 21..35 -contains $_ } { "Food Crops" } # 5%
+					{ 36..40 -contains $_ } { "Luxury Minerals" } # 5%
 	                default { "nothing" }
 	            }
             }
 	        { "Temperate" -contains $_ } {
 	            switch ($diceroll) {
-	                { 1..2 -contains $_ } { "Natural Gas" }
-					{ 3..7 -contains $_ } { "Coal" }
-					{ 8..12 -contains $_ } { "Iron" }
-					{ 13..17 -contains $_ } { "Aluminum" }
-					18 { "Uranium 92" }
-					{ 19..33 -contains $_ } { "Food Crops" }
-					{ 34..42 -contains $_ } { "Cash Crops" }
-					{ 43..47 -contains $_ } { "Luxury Minerals" }
+	                { 1..2 -contains $_ } { "Natural Gas" } # 2%
+					{ 3..6 -contains $_ } { "Coal" } # 4%
+					{ 7..10 -contains $_ } { "Iron" } # 4%
+					{ 11..17 -contains $_ } { "Aluminum" } # 7%
+					18 { "Uranium 92" } # 1%
+					{ 19..33 -contains $_ } { "Food Crops" } # 15%
+					{ 34..40 -contains $_ } { "Cash Crops" } # 7%
+					{ 41..47 -contains $_ } { "Luxury Minerals" } # 7%
 	                default { "nothing" }
 	            }
             }
 	        { "Hot" -contains $_ } {
 	            switch ($diceroll) {
-	                { 1..2 -contains $_ } { "Oil" }
-	                { 3..4 -contains $_ } { "Natural Gas" }
-					{ 5..7 -contains $_ } { "Coal" }
-					{ 8..10 -contains $_ } { "Iron" }
-					{ 11..15 -contains $_ } { "Aluminum" }
-					16 { "Uranium 92" }
-					{ 17..31 -contains $_ } { "Food Crops" }
-					{ 32..41 -contains $_ } { "Cash Crops" }
-					{ 42..46 -contains $_ } { "Luxury Minerals" }
+	                { 1..2 -contains $_ } { "Oil" } # 2%
+	                { 3..4 -contains $_ } { "Natural Gas" } # 2%
+					{ 5..7 -contains $_ } { "Coal" } # 3%
+					{ 8..10 -contains $_ } { "Iron" } # 3%
+					{ 11..15 -contains $_ } { "Aluminum" } # 5%
+					16 { "Uranium 92" } # 1%
+					{ 17..31 -contains $_ } { "Food Crops" } # 15%
+					{ 32..41 -contains $_ } { "Cash Crops" } # 10%
+					{ 42..46 -contains $_ } { "Luxury Minerals" } # 5%
 	                default { "nothing" }
 	            }
             }
 	        { "Steppe" -contains $_ } {
 	            switch ($diceroll) {
-	                { 1..2 -contains $_ } { "Natural Gas" }
-					{ 3..4 -contains $_ } { "Coal" }
-					{ 5..7 -contains $_ } { "Iron" }
-					8 { "Uranium 92" }
-					{ 9..23 -contains $_ } { "Food Crops" }
-					{ 24..28 -contains $_ } { "Phosphorus" }
-					{ 29..38 -contains $_ } { "Cash Crops" }
-					{ 39..43 -contains $_ } { "Luxury Minerals" }
+	                { 1..2 -contains $_ } { "Natural Gas" } # 2%
+					{ 3..4 -contains $_ } { "Coal" } # 2%
+					{ 5..7 -contains $_ } { "Iron" } # 3%
+					8 { "Uranium 92" } # 1%
+					{ 9..23 -contains $_ } { "Food Crops" } # 15%
+					{ 24..30 -contains $_ } { "Phosphorus" } # 7%
+					{ 31..40 -contains $_ } { "Cash Crops" } # 10%
+					{ 41..47 -contains $_ } { "Luxury Minerals" } # 7%
 	                default { "nothing" }
 	            }
             }
 	        { "Semiarid" -contains $_ } {
 	            switch ($diceroll) {
-	                { 1..2 -contains $_ } { "Oil" }
-	                { 3..4 -contains $_ } { "Natural Gas" }
-					{ 5..9 -contains $_ } { "Coal" }
-					{ 10..14 -contains $_ } { "Iron" }
-					15 { "Uranium 92" }
-					{ 16..20 -contains $_ } { "Food Crops" }
-					{ 21..25 -contains $_ } { "Phosphorus" }
-					{ 26..35 -contains $_ } { "Cash Crops" }
-					{ 36..40 -contains $_ } { "Luxury Minerals" }
+	                { 1..2 -contains $_ } { "Oil" } # 2%
+	                { 3..4 -contains $_ } { "Natural Gas" } # 2%
+					{ 5..9 -contains $_ } { "Coal" } # 5%
+					{ 10..14 -contains $_ } { "Iron" } # 5%
+					15 { "Uranium 92" } # 1%
+					{ 16..20 -contains $_ } { "Food Crops" } # 5%
+					{ 21..25 -contains $_ } { "Phosphorus" } # 5%
+					{ 26..35 -contains $_ } { "Cash Crops" } # 10%
+					{ 36..40 -contains $_ } { "Luxury Minerals" } # 5%
 	                default { "nothing" }
 	            }
             }
 	        { "Desert" -contains $_ } {
 	            switch ($diceroll) {
-	                { 1..2 -contains $_ } { "Oil" }
-	                { 3..4 -contains $_ } { "Natural Gas" }
-					{ 5..6 -contains $_ } { "Coal" }
-					{ 7..8 -contains $_ } { "Iron" }
-					{ 9..13 -contains $_ } { "Rare Earth Elements" }
-					{ 14..15 -contains $_ } { "Aluminum" }
-					16 { "Uranium 92" }
-					{ 17..21 -contains $_ } { "Phosphorus" }
-					{ 22..26 -contains $_ } { "Luxury Minerals" }
+	                { 1..2 -contains $_ } { "Oil" } # 2%
+	                { 3..4 -contains $_ } { "Natural Gas" } # 2%
+					{ 5..6 -contains $_ } { "Coal" } # 2%
+					{ 7..8 -contains $_ } { "Iron" } # 2%
+					{ 9..13 -contains $_ } { "Rare Earth Elements" } # 5%
+					{ 14..15 -contains $_ } { "Aluminum" } # 2%
+					16 { "Uranium 92" } # 1%
+					{ 17..21 -contains $_ } { "Phosphorus" } # 5%
+					{ 22..26 -contains $_ } { "Luxury Minerals" } # 5%
 	                default { "nothing" }
 	            }
             }
 	        { "Highland" -contains $_ } {
 	            switch ($diceroll) {
-					{ 1..5 -contains $_ } { "Coal" }
-					{ 6..10 -contains $_ } { "Iron" }
-					{ 11..15 -contains $_ } { "Rare Earth Elements" }
-					16 { "Uranium 92" } 
-					{ 17..21 -contains $_ } { "Phosphorus" }
-					{ 22..31 -contains $_ } { "Cash Crops" }
-					{ 32..36 -contains $_ } { "Luxury Minerals" }
+					{ 1..5 -contains $_ } { "Coal" } # 5%
+					{ 6..10 -contains $_ } { "Iron" } # 5%
+					{ 11..15 -contains $_ } { "Rare Earth Elements" } # 5%
+					16 { "Uranium 92" } # 1%
+					{ 17..21 -contains $_ } { "Phosphorus" } # 5%
+					{ 22..31 -contains $_ } { "Cash Crops" } # 10%
+					{ 32..36 -contains $_ } { "Luxury Minerals" } # 5%
 	                default { "nothing" }
 	            }
             }
 	        { "Marsh" -contains $_ } {
 	            switch ($diceroll) {
-	                { 1..2 -contains $_ } { "Oil" }
-	                { 3..9 -contains $_ } { "Natural Gas" }
-					{ 10..24 -contains $_ } { "Fish" }
-					{ 25..34 -contains $_ } { "Cash Crops" }
+	                { 1..2 -contains $_ } { "Oil" } # 2%
+	                { 3..9 -contains $_ } { "Natural Gas" } # 7%
+					{ 10..24 -contains $_ } { "Fish" } # 15%
+					{ 25..34 -contains $_ } { "Cash Crops" } # 10%
 	                default { "nothing" }
 	            }
             }
 	        { "Ice Cap" -contains $_ } {
 	            switch ($diceroll) {
-	                { 1..7 -contains $_ } { "Oil" }
-	                { 8..12 -contains $_ } { "Natural Gas" }
+	                { 1..7 -contains $_ } { "Oil" } # 7%
+	                { 8..12 -contains $_ } { "Natural Gas" } # 5%
 	                default { "nothing" }
 	            }
             }
 	        { "Sea/Lake" -contains $_ } {
 	            switch ($diceroll) {
-	                { 1..7 -contains $_ } { "Oil" }
-	                { 8..12 -contains $_ } { "Natural Gas" }
-					{ 13..32 -contains $_ } { "Fish" }
-                    { 33..37 -contains $_ } { "Luxury Minerals" }
+	                { 1..7 -contains $_ } { "Oil" } # 7%
+	                { 8..12 -contains $_ } { "Natural Gas" } # 5%
+					{ 13..32 -contains $_ } { "Fish" } # 20%
+                    { 33..37 -contains $_ } { "Luxury Minerals" } # 5%
 	                default { "nothing" }
 	            }
 	        }
             { "[NUCLEAR TEST]" -contains $_ } {
 	            switch ($diceroll) {
-	                { 1..8 -contains $_ } { "a horrible Mistake! MELTDOWN" }
-	                { 9..25 -contains $_ } { "a Setback! -1" }
-					{ 26..50 -contains $_ } { "an Obstacle! +0" }
-                    { 51..85 -contains $_ } { "a Discovery! +1" }
-                    { 86..100 -contains $_ } { "a Breakthrough! +2" }
+	                { 1..8 -contains $_ } { "a horrible Mistake! MELTDOWN" } # 8%
+	                { 9..25 -contains $_ } { "a Setback! -1" } # 17
+					{ 26..50 -contains $_ } { "an Obstacle! +0" } # 25
+                    { 51..85 -contains $_ } { "a Discovery! +1" } # 35
+                    { 86..100 -contains $_ } { "a Breakthrough! +2" } # 15
 	                default { "nothing" }
 	            }
 	        }
             { "[NPC Expansion]" -contains $_ } {
 	            switch ($diceroll) {
-	                { 1..25 -contains $_ } { "Expand" }
-	                { 26..45 -contains $_ } { "Produce Units" }
+	                { 1..30 -contains $_ } { "+4ep" } # 30%
+	                { 31..45 -contains $_ } { "+3ep" } # 15%
+					{ 46..55 -contains $_ } { "+2ep" } # 10%
+					{ 56..60 -contains $_ } { "+1ep" } # 5%
 	                default { "nothing" }
 	            }
 	        }
@@ -231,7 +234,7 @@ Function Get-RandomTileResource {
                 if ($npc) {
                     Write-Host ('A(n) {0} NPC spawned!' -f $npc.Mood) -ForegroundColor Red
                     Write-Host ('It is {0} tiles big & has {1}' -f $npc.Size,$npc.Resource) -ForegroundColor Red
-                    Write-Host ('This NPC is {0}' -f $npc.Luck) -ForegroundColor Red
+                    Write-Host ('It has a {0} govt & is {1}' -f $npc.Govt,$npc.Luck) -ForegroundColor Red
                 }
                 Write-Host ('____________________________________________________________________________________________')
 		        Write-Host
@@ -318,6 +321,7 @@ Function Get-RandomTileResource {
 		Matt Repsher	May 23, 2016		Remade to accommodate D&CVI mechanics
         Matt Repsher	June 26, 2016		changed NPC chance to 1/100; buffed sea/lake; removed food from highland
         Matt Repsher	August 7, 2016		Rebalanced chances for nuclear test option, added NPC Expansion option
+        Matt Repsher	September 10, 2016	Added government types to NPCs, changed the roll chances for NPC expansion, & added resource chances as comments off to the side.
 
 .LINK
     https://gist.github.com/vercellone/bdf13d74caded715afaa
