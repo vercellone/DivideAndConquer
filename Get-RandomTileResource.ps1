@@ -47,8 +47,8 @@ Function Get-RandomTileResource {
 					{ 10..14 -contains $_ } { "Iron" } # 5%
 					{ 15..19 -contains $_ } { "Rare Earth Elements" } # 5%
 					20 { "Uranium 92" } # 1%
-					{ 21..35 -contains $_ } { "Food Crops" } # 5%
-					{ 36..40 -contains $_ } { "Luxury Minerals" } # 5%
+					{ 21..25 -contains $_ } { "Food Crops" } # 5%
+					{ 26..30 -contains $_ } { "Luxury Minerals" } # 5%
 	                default { "nothing" }
 	            }
             }
@@ -143,17 +143,17 @@ Function Get-RandomTileResource {
             }
 	        { "Ice Cap" -contains $_ } {
 	            switch ($diceroll) {
-	                { 1..7 -contains $_ } { "Oil" } # 7%
-	                { 8..12 -contains $_ } { "Natural Gas" } # 5%
+	                { 1..11 -contains $_ } { "Oil" } # 11%
+	                { 12..21 -contains $_ } { "Natural Gas" } # 9%
 	                default { "nothing" }
 	            }
             }
 	        { "Sea/Lake" -contains $_ } {
 	            switch ($diceroll) {
-	                { 1..7 -contains $_ } { "Oil" } # 7%
-	                { 8..12 -contains $_ } { "Natural Gas" } # 5%
-					{ 13..32 -contains $_ } { "Fish" } # 20%
-                    { 33..37 -contains $_ } { "Luxury Minerals" } # 5%
+	                { 1..8 -contains $_ } { "Oil" } # 8%
+	                { 9..14 -contains $_ } { "Natural Gas" } # 6%
+					{ 15..38 -contains $_ } { "Fish" } # 24%
+                    { 39..44 -contains $_ } { "Luxury Minerals" } # 6%
 	                default { "nothing" }
 	            }
 	        }
@@ -316,12 +316,13 @@ Function Get-RandomTileResource {
 
 .NOTES
     Change Log:
-	Jason Vercellone	July 2, 2015		Created
+	Jason Vercellone	July 2, 2015	Created
         Matt Repsher	September 1, 2015	Sentence Case corrections; Updated various selections/probabilities
-		Matt Repsher	May 23, 2016		Remade to accommodate D&CVI mechanics
+	Matt Repsher	May 23, 2016		Remade to accommodate D&CVI mechanics
         Matt Repsher	June 26, 2016		changed NPC chance to 1/100; buffed sea/lake; removed food from highland
         Matt Repsher	August 7, 2016		Rebalanced chances for nuclear test option, added NPC Expansion option
         Matt Repsher	September 10, 2016	Added government types to NPCs, changed the roll chances for NPC expansion, & added resource chances as comments off to the side.
+	Matt Repsher	December 2. 2016	Buffed Sea/Lake chances by 1.2; buffed Ice Cap chances by 1.5
 
 .LINK
     https://gist.github.com/vercellone/bdf13d74caded715afaa
